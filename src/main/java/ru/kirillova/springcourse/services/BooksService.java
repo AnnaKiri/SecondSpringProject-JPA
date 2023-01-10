@@ -60,6 +60,7 @@ public class BooksService {
 
     public Optional<Person> showPerson(int id) {
         Book book = booksRepository.findById(id).get();
+        Hibernate.initialize(book.getOwner());
         return Optional.ofNullable(book.getOwner());
     }
 
@@ -89,5 +90,14 @@ public class BooksService {
     public void assignBook(int idBook, int idPerson) {
         Book book = booksRepository.findById(idBook).get();
         book.setOwner(peopleRepository.findById(idPerson).get());
+    }
+
+    public List<Book> search(String query) {
+        List<Book> books = booksRepository.findByTitleStartingWith(query);
+        for (Book book : books) {
+            Hibernate.initialize(book.getOwner());
+        }
+
+        return books;
     }
 }

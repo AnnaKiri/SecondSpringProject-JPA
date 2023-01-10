@@ -90,4 +90,14 @@ public class BooksController {
 
         return "redirect:/books/" + id;
     }
+
+    @GetMapping("/search")
+    public String searchPage() {
+        return "books/search";
+    }
+    @PostMapping("/search")
+    public String makeSearch(Model model, @RequestParam(name = "query") String query) {
+        model.addAttribute("books", booksService.search(query));
+        return "books/search";
+    }
 }
