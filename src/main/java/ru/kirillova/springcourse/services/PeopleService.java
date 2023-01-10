@@ -36,11 +36,6 @@ public class PeopleService {
         return person.getBooks();
     }
 
-
-//    public Person show(int id) {
-//        return peopleRepository.findById(id).get();
-//    }
-
     @Transactional
     public void save(Person person) {
         peopleRepository.save(person);
