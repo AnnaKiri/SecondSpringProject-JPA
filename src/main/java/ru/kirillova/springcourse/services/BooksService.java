@@ -89,6 +89,7 @@ public class BooksService {
     @Transactional
     public void assignBook(int idBook, int idPerson) {
         Book book = booksRepository.findById(idBook).get();
+        book.setDate(new Date());
         book.setOwner(peopleRepository.findById(idPerson).get());
     }
 

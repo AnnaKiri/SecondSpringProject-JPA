@@ -33,6 +33,12 @@ public class PeopleService {
     public List<Book> showBooksList(int id) {
         Person person = peopleRepository.findById(id).get();
         Hibernate.initialize(person.getBooks());
+        for (Book book : person.getBooks()) {
+            Date currentTime = new Date();
+            Date assignTime = book.getDate();
+//            864000000 милисекунд = 10 суток
+            book.setExpired(Math.abs(currentTime.getTime() - assignTime.getTime()) > 864000000);
+        }
         return person.getBooks();
     }
 
